@@ -1,0 +1,28 @@
+package net.ukr.andy777;
+
+public class MyException extends Exception {
+
+	private int code;
+	private String id;
+
+	MyException(int code, String id) {
+		this.code = code;
+		this.id = id;
+	}
+
+	public String toString() {
+		String res;
+		switch (this.code) {
+		case 1:
+			res = "1. group is full, NO PLACES = група заповнена, немає місць для студента ";
+			break;
+		case 2:
+			res = "2. place in the group is NOT OCCUPIED = місце в групі НЕ ЗАЙНЯТЕ ";
+			break;
+		default:
+			res = "indescribable exception = неописане виключення";
+			break;
+		}
+		return "MyException [" + res + this.id+"]";
+	}
+}
