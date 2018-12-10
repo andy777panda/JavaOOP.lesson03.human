@@ -15,51 +15,53 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		int q = AP.inputIntegerDialog(0, 12,"amount of students for fist initializing");
+		int q = AP.inputIntegerDialog(0, 12,
+				"amount of students for fist initializing");
 		Group gr1 = new Group("Group1", "123/45");
 
-		
 		// initializing array of students = ініціалізація переліку студентів
 		for (int i = 0; i < q; i++)
-			gr1.tcAddStudentToGroup(Student.rndStudent(17, 23, AP.rndBoolean(),
-					1, 6));
+			gr1.tcAddStudentToGroup(AP
+					.rndStudent(17, 23, AP.rndBoolean(), 1, 6));
 		System.out.println();
 		System.out.println(gr1 + "\n");
 
-		
 		// remove students from group = виключення студентів з групи
 		for (int i = 0; i < 3; i++) {
-			// особа на випадковій позиції у списку
+			// особа на випадковій позиції у списку групи
 			gr1.tcRemoveStudentFromGroup(gr1.getGroup()[AP.rndInteger(0, 9)]);
 			// випадкова особа
-			gr1.tcRemoveStudentFromGroup(Student.rndStudent(17, 23, AP
-					.rndBoolean(), 1, 6));
+			gr1.tcRemoveStudentFromGroup(AP.rndStudent(17, 23, AP.rndBoolean(),
+					1, 6));
+			// не визначена особа
+			gr1.tcRemoveStudentFromGroup(null);
 		}
 		System.out.println();
 		System.out.println(gr1 + "\n");
 
-		
 		// Add students to group = додавання студентів до групи
-		for (int i = 0; i < 4; i++)
-			gr1.tcAddStudentToGroup(Student.rndStudent(17, 23, AP.rndBoolean(),
-					1, 6));
+		for (int i = 0; i < 5; i++)
+			gr1.tcAddStudentToGroup(AP
+					.rndStudent(17, 23, AP.rndBoolean(), 1, 6));
 		System.out.println();
 		System.out.println(gr1 + "\n");
 
-		
 		// Finding a student by second name = метод пошуку студента за прізвищем
 		for (int i = 0; i < 10; i++) {
-			gr1.findSecondName(Human.setSecondNameRnd(AP.rndBoolean()));
+			Student[] sts = gr1.findSecondName(AP.setSecondNameRnd(AP
+					.rndBoolean()));
+			Group gr2 = new Group("findGroup2", "678/90", sts);
+			// знайдені студенти відсортовані за зростанням
+			System.out.println(gr2.getSortGroup(1)+ "\n");
 		}
-		System.out.println();
 
-		//AZ-sort = сортування переліку зростанням
-		System.out.println(gr1.getSortGroup(1)+ "\n");
-		//ZA-sort = сортування переліку спаданням
-		System.out.println(gr1.getSortGroup(-1)+ "\n");
-		//unsorted = не сортований перелік
-		System.out.println(gr1.getSortGroup(0)+ "\n");
-		//original = оригінальна база
+		// AZ-sort = сортування переліку зростанням
+		System.out.println(gr1.getSortGroup(1) + "\n");
+		// ZA-sort = сортування переліку спаданням
+		System.out.println(gr1.getSortGroup(-1) + "\n");
+		// unsorted = не сортований перелік
+		System.out.println(gr1.getSortGroup(0) + "\n");
+		// original = оригінальна база
 		System.out.println(gr1 + "\n");
 
 	}

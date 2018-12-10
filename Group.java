@@ -70,9 +70,9 @@ public class Group {
 	public String toString() {
 		String resStr = "";
 		int i = 0;
-		for (Student st : this.getGroup())
+		for (Student st : group)
 			resStr += "\n" + ++i + ". " + st;
-		return "Group [" + this.getGroupName() + " #" + this.getGroupNumber()
+		return "Group [" + groupName + " #" + groupNumber
 				+ "] consists of such students:" + resStr;
 	}
 
@@ -87,11 +87,11 @@ public class Group {
 	 * @author ap
 	 */
 	public String getSortGroup(int az) {
-		String[] sts = new String[this.getGroup().length];
+		String[] sts = new String[group.length];
 		String resStr = "";
-		for (int i = 0; i < this.getGroup().length; i++) {
+		for (int i = 0; i < group.length; i++) {
 			try {
-				sts[i] = this.getGroup()[i].toString();
+				sts[i] = group[i].toString();
 			} catch (NullPointerException e) {
 				sts[i] = "";
 			}
@@ -101,9 +101,8 @@ public class Group {
 			if (sts[i] != "")
 				resStr += "\n" + sts[i];
 		}
-		return "Sorted " + direction(az) + "\t Group [" + this.getGroupName()
-				+ " #" + this.getGroupNumber() + "] consists of such students:"
-				+ resStr;
+		return "Sorted " + direction(az) + "\t Group [" + groupName + " #"
+				+ groupNumber + "] consists of such students:" + resStr;
 	}
 
 	// return string value of sort direction = метод повертає напрямок сортуання
@@ -116,8 +115,8 @@ public class Group {
 			return "unsorted ";
 	}
 
-	// В случае попытки добавления 11го студента создать собственное исключение
-	// и обработать его.
+	// Реализовать метод добавления студента в группу. В случае попытки
+	// добавления 11го студента создать собственное исключение и обработать его.
 	/**
 	 * Add Student to Group = метод додавання студента до групи
 	 * 
@@ -128,12 +127,11 @@ public class Group {
 	public void addStudentToGroup(Student st) throws MyException {
 		System.out.print("Add student = додавання студента: " + st + " ==>> "
 				+ "\n\t");
-		String id = "(" + this.getGroupName() + " #" + this.getGroupNumber()
-				+ ")";
+		String id = "(" + groupName + " #" + groupNumber + ")";
 		boolean add = false;
-		for (int i = 0; i < this.getGroup().length; i++) {
-			if (this.getGroup()[i] == null) {
-				this.getGroup()[i] = st;
+		for (int i = 0; i < group.length; i++) {
+			if (group[i] == null) {
+				group[i] = st;
 				add = true;
 				break;
 			}
@@ -162,6 +160,7 @@ public class Group {
 		}
 	}
 
+	// Реализовать метод удаления студента из группы.
 	/**
 	 * Remove Student from Group = метод видалення студента з групи
 	 * 
@@ -174,16 +173,15 @@ public class Group {
 				+ " ==>> " + "\n\t");
 		String resStr = "an exception is not possible. student is not in the group"
 				+ " = виключення не можливе. студент не в групі ";
-		String id = "(" + this.getGroupName() + " #" + this.getGroupNumber()
-				+ ")";
+		String id = "(" + groupName + " #" + groupNumber + ")";
 		if (st == null)
 			throw new MyException(2, id);
-		for (int i = 0; i < this.getGroup().length; i++) {
-			if (this.getGroup()[i] == st) {
-				this.getGroup()[i] = null; // exclude student = видаляємо
-				// студента
-				this.count = this.getCount() - 1; // reduce counter = зменшуємо
-				// лічільник
+		for (int i = 0; i < group.length; i++) {
+			if (group[i] == null)
+				continue;
+			if (group[i].equals(st)) {
+				group[i] = null; // exclude student = видаляємо студента
+				count--; // reduce counter = зменшуємо лічільник
 				resStr = "the student is EXCUDED from the group"
 						+ " = студента ВИКЛЮЧЕНО з групи ";
 				break;
@@ -209,6 +207,7 @@ public class Group {
 		}
 	}
 
+	// Реализовать метод поиска студента по фамилии.
 	/**
 	 * Finding a student by second name = метод пошуку студента за прізвищем
 	 * 
@@ -217,24 +216,27 @@ public class Group {
 	 * @return count of found surnames
 	 * @author ap
 	 */
-	public int findSecondName(String sName) {
-		String id = "(" + this.getGroupName() + " #" + this.getGroupNumber()
-				+ ")";
+	public Student[] findSecondName(String sName) {
+		Student[] findList = new Student[0];// result array == масив результатів
+		String id = "(" + groupName + " #" + groupNumber + ")";
 		System.out.print("Find student in group = пошук студента в групі " + id
 				+ ": " + sName + " ==>> ");
 		String resStr = "";
 		int q = 0; // finds counter = лічильник знахідок
-		for (int i = 0; i < this.getGroup().length; i++) {
-			if (this.getGroup()[i] == null)
+		for (int i = 0; i < group.length; i++) {
+			if (group[i] == null)
 				continue;
-			if (this.getGroup()[i].getSecondName() == sName) {
-				q++;
-				resStr += "\n\t\t" + (i + 1) + ". "
-						+ this.getGroup()[i].toString();
+			if (group[i].getSecondName() == sName) {
+				// розширюємо масив знайдених студентів
+				findList=AP.resize(findList,1);
+				// ініціалізуємо знайденого студента в масиві результатів
+				findList[q++] = group[i];
+				resStr += "\n\t\t" + (i + 1) + ". " + group[i].toString();
 			}
 		}
 		resStr = "\t found students = знайдено студентів: " + q + resStr;
 		System.out.println(resStr);
-		return q;
+		return findList;
 	}
+
 }

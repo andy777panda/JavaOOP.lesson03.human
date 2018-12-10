@@ -17,12 +17,13 @@ public class MyException extends Exception {
 			res = "1. group is full, NO PLACES = група заповнена, немає місць для студента ";
 			break;
 		case 2:
-			res = "2. place in the group is NOT OCCUPIED = місце в групі НЕ ЗАЙНЯТЕ ";
+			res = "2. student NOT SPECIFIED OR place in the group is NOT OCCUPIED = "
+					+ "студента не зазначено АБО місце в групі НЕ ЗАЙНЯТЕ ";
 			break;
 		default:
 			res = "indescribable exception = неописане виключення";
 			break;
 		}
-		return "MyException [" + res + this.id+"]";
+		return "MyException [" + res + id + "]";
 	}
 }
