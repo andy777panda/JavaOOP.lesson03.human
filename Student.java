@@ -57,4 +57,28 @@ public class Student extends Human {
 				+ " (" + age + "-years, " + (sex ? "male" : "female")
 				+ ") HighSchool-" + highSchool + ", grade-" + yearStudy + "]";
 	}
+
+	
+	/**
+	 * Comparing two instances of a class Student = метод порівняння двох
+	 * екземпляір класу Student
+	 * 
+	 * @param person
+	 *            <code>Student</code> instances of a class Student
+	 * @return boolean true-value if equals
+	 * @author ap
+	 */
+	public boolean equals(Student person) {
+		boolean res = false;
+		if (this.secondName.equals(person.getSecondName())
+				&& this.firstName.equals(person.getFirstName())
+				&& this.middleName.equals(person.getMiddleName())
+				&& this.age==person.getAge() && this.sex==person.isSex()
+				&& this.highSchool.equals(person.getHighSchool())
+				&& this.yearStudy==person.getYearStudy()) {
+			res = true;
+		}
+		return res;
+	}
+
 }

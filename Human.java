@@ -81,4 +81,23 @@ public class Human {
 				+ " (" + age + "-years, " + (sex ? "male" : "female") + ")]";
 	}
 
+	/**
+	 * Comparing two instances of a class Human = метод порівняння двох
+	 * екземпляір класу Human
+	 * 
+	 * @param person
+	 *            <code>Human</code> instances of a class Human
+	 * @return boolean true-value if equals
+	 * @author ap
+	 */
+	public boolean equals(Human person) {
+		boolean res = false;
+		if (this.secondName.equals(person.getSecondName())
+				&& this.firstName.equals(person.getFirstName())
+				&& this.middleName.equals(person.getMiddleName())
+				&& this.age == person.getAge() && this.sex == person.isSex()) {
+			res = true;
+		}
+		return res;
+	}
 }

@@ -226,9 +226,10 @@ public class Group {
 		for (int i = 0; i < group.length; i++) {
 			if (group[i] == null)
 				continue;
-			if (group[i].getSecondName() == sName) {
+			// if (group[i].getSecondName() == sName) {
+			if (group[i].getSecondName().equalsIgnoreCase(sName)) {
 				// розширюємо масив знайдених студентів
-				findList=AP.resize(findList,1);
+				findList = AP.resize(findList, 1);
 				// ініціалізуємо знайденого студента в масиві результатів
 				findList[q++] = group[i];
 				resStr += "\n\t\t" + (i + 1) + ". " + group[i].toString();
