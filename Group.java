@@ -226,7 +226,6 @@ public class Group {
 		for (int i = 0; i < group.length; i++) {
 			if (group[i] == null)
 				continue;
-			// if (group[i].getSecondName() == sName) {
 			if (group[i].getSecondName().equalsIgnoreCase(sName)) {
 				// розширюємо масив знайдених студентів
 				findList = AP.resize(findList, 1);
