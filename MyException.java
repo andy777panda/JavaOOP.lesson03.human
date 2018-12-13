@@ -20,6 +20,10 @@ public class MyException extends Exception {
 			res = "2. student NOT SPECIFIED OR place in the group is NOT OCCUPIED = "
 					+ "студента не зазначено АБО місце в групі НЕ ЗАЙНЯТЕ ";
 			break;
+		case 3:
+			res = "3. same recordNumber is in group's student = "
+					+ "аналогічний однаковий номер заліковки вже є у студента групи ";
+			break;
 		default:
 			res = "indescribable exception = неописане виключення";
 			break;

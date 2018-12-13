@@ -81,6 +81,8 @@ public class Human {
 				+ " (" + age + "-years, " + (sex ? "male" : "female") + ")]";
 	}
 
+	// !!!! methot needs to be improved, for future = метод потребує
+	// доопрацювання, на майбутнє
 	/**
 	 * Comparing two instances of a class Human = метод порівняння двох
 	 * екземпляір класу Human

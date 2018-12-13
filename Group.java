@@ -115,6 +115,7 @@ public class Group {
 			return "unsorted ";
 	}
 
+	
 	// Реализовать метод добавления студента в группу. В случае попытки
 	// добавления 11го студента создать собственное исключение и обработать его.
 	/**
@@ -128,6 +129,19 @@ public class Group {
 		System.out.print("Add student = додавання студента: " + st + " ==>> "
 				+ "\n\t");
 		String id = "(" + groupName + " #" + groupNumber + ")";
+
+		// search same recordNumber in group = 
+		// пошук однакового номеру заліковки в групі
+		for (int i = 0; i < group.length; i++) {
+			if (group[i] != null) {
+				if (group[i].getRecordNumber() == st.getRecordNumber()) {
+					throw new MyException(3, id);
+				}
+			}
+		}
+
+		// search free place in group = 
+		// пошук вільного місця в групі
 		boolean add = false;
 		for (int i = 0; i < group.length; i++) {
 			if (group[i] == null) {
@@ -162,7 +176,8 @@ public class Group {
 
 	// Реализовать метод удаления студента из группы.
 	/**
-	 * Remove Student from Group = метод видалення студента з групи
+	 * Remove Student from Group by recordNumber = метод видалення студента з
+	 * групи по номеру заліковки
 	 * 
 	 * @param st
 	 *            <code>Student</code> element of class Student
@@ -179,7 +194,14 @@ public class Group {
 		for (int i = 0; i < group.length; i++) {
 			if (group[i] == null)
 				continue;
-			if (group[i].equals(st)) {
+
+			// if (group[i].equals(st)) { 
+			// !!!! methot EQUALS needs to be improved, for future = 
+			// метод потребує доопрацювання, на майбутнє
+
+			// currently, identification is only on the recordNumber = 
+			// наразі ідентифікація лише по номеру заліковки
+			if (group[i].getRecordNumber() == st.getRecordNumber()) {
 				group[i] = null; // exclude student = видаляємо студента
 				count--; // reduce counter = зменшуємо лічільник
 				resStr = "the student is EXCUDED from the group"

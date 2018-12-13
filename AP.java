@@ -97,7 +97,6 @@ public class AP {
 		return arr;
 	}
 
-	
 	/**
 	 * Resizing array of Students for given value = зміна розмірності масиву
 	 * студентів на задану ведичину
@@ -115,7 +114,6 @@ public class AP {
 		return temp;
 	}
 
-	
 	/**
 	 * Randomizing second name from list depending of sex = метод випадкової
 	 * генерації прізвища зі списку в залежності від статі
@@ -227,6 +225,7 @@ public class AP {
 				setMiddleNameRnd(sex), rndInteger(a1, a2), sex);
 	}
 
+	
 	/**
 	 * Method randomize initialazation of new Student element depending of age
 	 * range, sex and grade range = Метод ініціалізації нового елементу класу
@@ -243,12 +242,14 @@ public class AP {
 	 *            <code>int</code> minimum grade of student
 	 * @param g2
 	 *            <code>int</code> maximum grade of student
+	 * @param maxR
+	 *            <code>int</code> maximum record number
 	 * @return Student element.
 	 * @author ap
 	 */
-	public static Student rndStudent(int a1, int a2, boolean sex, int g1, int g2) {
-		return new Student(rndHuman(a1, a2, sex), setHighScoolRnd(),
-				rndInteger(g1, g2));
+	public static Student rndStudent(int a1, int a2, boolean sex, int maxR, int g1, int g2) {
+		return new Student(rndHuman(a1, a2, sex), rndInteger(1, maxR),
+				setHighScoolRnd(), rndInteger(g1, g2));
 	}
 
 	/**
@@ -263,10 +264,34 @@ public class AP {
 	 *            <code>int</code> minimum grade of student
 	 * @param g2
 	 *            <code>int</code> maximum grade of student
+	 * @param maxR
+	 *            <code>int</code> maximum record number
 	 * @return Student element.
 	 * @author ap
 	 */
-	public static Student rndStudent(Human hm, int g1, int g2) {
-		return new Student(hm, setHighScoolRnd(), rndInteger(g1, g2));
+	public static Student rndStudent(Human hm, int maxR, int g1, int g2) {
+		return new Student(hm, rndInteger(1, maxR), setHighScoolRnd(),
+				rndInteger(g1, g2));
 	}
+
+	/**
+	 * Method randomize initialazation of new Student element depending of age
+	 * range and sex = Метод ініціалізації нового елементу класу Student в
+	 * залежності від діапазону віку та статі
+	 * 
+	 * @param a1
+	 *            <code>int</code> minimum age of student
+	 * @param a2
+	 *            <code>int</code> maximum age of student
+	 * @param sex
+	 *            <code>boolean</code> sex of student
+	 * @param maxR
+	 *            <code>int</code> maximum record number
+	 * @return Student element.
+	 * @author ap
+	 */
+	public static Student rndStudent(int a1, int a2, boolean sex, int maxR) {
+		return new Student(rndHuman(a1, a2, sex), rndInteger(1, maxR));
+	}
+
 }

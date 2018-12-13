@@ -21,8 +21,12 @@ public class Main {
 
 		// initializing array of students = ініціалізація переліку студентів
 		for (int i = 0; i < q; i++)
-			gr1.tcAddStudentToGroup(AP
-					.rndStudent(17, 23, AP.rndBoolean(), 1, 6));
+			// попередній метод ініціалізації з роком мавчання та вузом
+			// gr1.tcAddStudentToGroup(AP.rndStudent(17, 23, AP.rndBoolean(), 1,
+			// 6));
+
+			gr1.tcAddStudentToGroup(AP.rndStudent(17, 23, AP.rndBoolean(), 20,
+					1, 6));
 		System.out.println();
 		System.out.println(gr1 + "\n");
 
@@ -30,9 +34,11 @@ public class Main {
 		for (int i = 0; i < 3; i++) {
 			// особа на випадковій позиції у списку групи
 			gr1.tcRemoveStudentFromGroup(gr1.getGroup()[AP.rndInteger(0, 9)]);
-			// випадкова особа
+
+			// випадкова особа з випадковим номером заліковки
 			gr1.tcRemoveStudentFromGroup(AP.rndStudent(17, 23, AP.rndBoolean(),
-					1, 6));
+					20));
+
 			// не визначена особа
 			gr1.tcRemoveStudentFromGroup(null);
 		}
@@ -41,8 +47,7 @@ public class Main {
 
 		// Add students to group = додавання студентів до групи
 		for (int i = 0; i < 5; i++)
-			gr1.tcAddStudentToGroup(AP
-					.rndStudent(17, 23, AP.rndBoolean(), 1, 6));
+			gr1.tcAddStudentToGroup(AP.rndStudent(17, 23, AP.rndBoolean(), 20));
 		System.out.println();
 		System.out.println(gr1 + "\n");
 
@@ -52,7 +57,7 @@ public class Main {
 					.rndBoolean()));
 			Group gr2 = new Group("findGroup2", "678/90", sts);
 			// знайдені студенти відсортовані за зростанням
-			System.out.println(gr2.getSortGroup(1)+ "\n");
+			System.out.println(gr2.getSortGroup(1) + "\n");
 		}
 
 		// AZ-sort = сортування переліку зростанням
