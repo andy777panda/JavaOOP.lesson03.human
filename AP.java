@@ -1,6 +1,13 @@
 package net.ukr.andy777;
 
 import javax.swing.JOptionPane;
+import java.util.Scanner;
+import java.io.IOException;
+
+/*
+ Lesson04
+ 1. Усовершенствуйте класс Group, добавив возможность интерактивного добавления объекта.
+ */
 
 public class AP {
 
@@ -33,6 +40,10 @@ public class AP {
 	 * Screen input integer value from a set range = метод екранного введення
 	 * цілого числа з заданого діапазону
 	 * 
+	 * @param a
+	 *            <code>int</code> minimum integer value of range
+	 * @param b
+	 *            <code>int</code> maximum integer value of range
 	 * @return int value.
 	 * @author ap
 	 */
@@ -165,8 +176,8 @@ public class AP {
 	}
 
 	/**
-	 * Randomizing first name from list depending of sex = метод випадкової
-	 * генерації імені зі списку в залежності від статі
+	 * Randomizing middle name from list depending of sex = метод випадкової
+	 * генерації прізвища зі списку в залежності від статі
 	 * 
 	 * @return String value.
 	 * @author ap
@@ -225,7 +236,6 @@ public class AP {
 				setMiddleNameRnd(sex), rndInteger(a1, a2), sex);
 	}
 
-	
 	/**
 	 * Method randomize initialazation of new Student element depending of age
 	 * range, sex and grade range = Метод ініціалізації нового елементу класу
@@ -238,16 +248,17 @@ public class AP {
 	 *            <code>int</code> maximum age of student
 	 * @param sex
 	 *            <code>boolean</code> sex of student
+	 * @param maxR
+	 *            <code>int</code> maximum record number
 	 * @param g1
 	 *            <code>int</code> minimum grade of student
 	 * @param g2
 	 *            <code>int</code> maximum grade of student
-	 * @param maxR
-	 *            <code>int</code> maximum record number
 	 * @return Student element.
 	 * @author ap
 	 */
-	public static Student rndStudent(int a1, int a2, boolean sex, int maxR, int g1, int g2) {
+	public static Student rndStudent(int a1, int a2, boolean sex, int maxR,
+			int g1, int g2) {
 		return new Student(rndHuman(a1, a2, sex), rndInteger(1, maxR),
 				setHighScoolRnd(), rndInteger(g1, g2));
 	}
@@ -260,12 +271,12 @@ public class AP {
 	 * 
 	 * @param hm
 	 *            <code>Human</code> element of class Human
+	 * @param maxR
+	 *            <code>int</code> maximum record number
 	 * @param g1
 	 *            <code>int</code> minimum grade of student
 	 * @param g2
 	 *            <code>int</code> maximum grade of student
-	 * @param maxR
-	 *            <code>int</code> maximum record number
 	 * @return Student element.
 	 * @author ap
 	 */
@@ -294,4 +305,164 @@ public class AP {
 		return new Student(rndHuman(a1, a2, sex), rndInteger(1, maxR));
 	}
 
+	// Lesson04. Усовершенствуйте класс Group, добавив возможность
+	// интерактивного добавления объекта.
+	/**
+	 * Print info-phrase AND Scanner input Integer value from a set range =
+	 * метод друку інфо-фрази ТА введення зі сканеру цілого числа з заданого
+	 * діапазону
+	 * 
+	 * @param msg
+	 *            <code>String</code> info-phrase
+	 * @param a
+	 *            <code>int</code> minimum integer value of range
+	 * @param b
+	 *            <code>int</code> maximum integer value of range
+	 * @return integer value of input number
+	 * @author ap
+	 */
+	public static int scInputInteger(String msg, int a, int b)
+			throws IOException {
+		System.out.print(msg + "in range " + a + "-" + b + ": ");
+		int res;
+		for (;;) {
+			try {
+				res = Integer.valueOf(new Scanner(System.in).next());
+				if ((res < a) || (res > b))
+					System.out.print("number out of range. RE-" + msg);
+				else
+					break;
+			} catch (NumberFormatException e) {
+				System.out.print(" !!! error number. RE-" + msg + "in range "
+						+ a + "-" + b + ": ");
+			}
+		}
+		return res;
+	}
+
+	/**
+	 * Print info-phrase AND input Integer value
+	 * 
+	 * @param msg
+	 *            <code>String</code> info-phrase
+	 * @return integer value of input number
+	 * @author ap
+	 */
+	public static int scInputInteger(String msg) throws IOException {
+		System.out.print(msg);
+		int res;
+		for (;;) {
+			try {
+				res = Integer.valueOf(new Scanner(System.in).next());
+				break;
+			} catch (NumberFormatException e) {
+				System.out.print(" !!! error number. RE-" + msg);
+			}
+		}
+		return res;
+	}
+
+	/**
+	 * Print info-phrase AND input String value
+	 * 
+	 * @param msg
+	 *            <code>String</code> info-phrase
+	 * @return String value of first input word
+	 * @author ap
+	 */
+	public static String scInputString(String msg) throws IOException {
+		System.out.print(msg);
+		return new Scanner(System.in).next();
+	}
+
+	/**
+	 * Print info-phrase AND input boolean value
+	 * 
+	 * @param msg
+	 *            <code>String</code> info-phrase
+	 * @return boolean value. <code>true</code> if input letter y/Y
+	 * @author ap
+	 */
+	public static boolean scInputBoolean(String msg) throws IOException {
+		System.out.print(msg);
+		return new Scanner(System.in).next().equalsIgnoreCase("y");
+	}
+
+	/**
+	 * Method scanner-input of new Human element depending of age range = Метод
+	 * ініціалізації нового елементу класу Human в залежності від діапазону
+	 * віку.
+	 * 
+	 * @param a1
+	 *            <code>int</code> minimum age of student
+	 * @param a2
+	 *            <code>int</code> maximum age of student
+	 * @return Human element.
+	 * @author ap
+	 */
+	public static Human scInputHuman(int a1, int a2) {
+		try {
+			String secondName = AP.scInputString("input secondName: ");
+			String firstName = AP.scInputString("input firstName: ");
+			String middleName = AP.scInputString("input middleName: ");
+			int age = AP.scInputInteger("input age: ", a1, a2);
+			boolean sex = AP
+					.scInputBoolean("sex Male? (\"y\"-male, other-famale): ");
+			Human res = new Human(secondName, firstName, middleName, age, sex);
+			return res;
+		} catch (Exception е) {
+			System.out.println("intercepted exception"
+					+ " = перехвачено виключення: " + е);
+			return null;
+		}
+	}
+
+	/**
+	 * Method scanner-input of new Student element depending of grade range =
+	 * Метод ініціалізації нового елементу класу Student в залежності від
+	 * діапазону року навчання.
+	 * 
+	 * @param maxR
+	 *            <code>int</code> maximum record number
+	 * @param g1
+	 *            <code>int</code> minimum grade of student
+	 * @param g2
+	 *            <code>int</code> maximum grade of student
+	 * @return Student element.
+	 * @author ap
+	 */
+	public static Student scInputStudent(Human human, int maxR, int g1, int g2) {
+		try {
+			int recordNumber = AP.scInputInteger("input cardRecord number: ",
+					1, maxR);
+			String highSchool = AP.scInputString("input highSchool: ");
+			int yearStudy = AP
+					.scInputInteger("input grade/yearStudy: ", g1, g2);
+			Student res = new Student(human, recordNumber, highSchool,
+					yearStudy);
+			return res;
+		} catch (Exception е) {
+			System.out.println("intercepted exception"
+					+ " = перехвачено виключення: " + е);
+			return null;
+		}
+	}
+
+	// return string value of sort direction = метод повертає напрямок сортуання
+	public static String direction(int aZ) {
+		if (aZ > 0)
+			return "aZ,123-sorted ";
+		if (aZ < 0)
+			return "Za,321-sorted ";
+		else
+			return "unsorted ";
+	}
+
+	public static int sign(int a) {
+		if (a > 0)
+			return 1;
+		if (a < 0)
+			return -1;
+		return 0;
+	}
 }

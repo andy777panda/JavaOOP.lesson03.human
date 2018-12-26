@@ -1,6 +1,9 @@
 package net.ukr.andy777;
 
+import java.util.Arrays;
+
 /*
+ Lesson03
  1. Создать класс Человек/Human, описывающий человека (Ф.,И.,О., возраст, пол)
  Создать метод, выводящий информацию о человеке.
  2. На основе класса Человек/Human создать класс Студент/Student. И переопределить метод вывода информации.
@@ -8,28 +11,60 @@ package net.ukr.andy777;
  Реализовать методы добавления, удаления студента из группы и поиска по фамилии.
  В случае попытки добавления 11го студента создать собственное исключение и обработать его.
  Определить метод toString() для группы так, чтобы он выводил список студентов в алфавитном порядке.
- 4. Нарисовать UML диаграмму проекта. 
+ 4. Нарисовать UML диаграмму проекта.
+
+ Lesson04
+ 1. Усовершенствуйте класс Group, добавив возможность интерактивного добавления объекта.
+ 2. Реализуйте возможность сортировки списка студентов по фамилии.
+ 3. Реализуйте возможность сортировки по параметру (Фамилия, успеваемость и т. д.).
+ 4. Реализуйте интерфейс Военком, который вернет из группы массив студентов - юношей, которым больше 18 лет.
+ 5. Протестируйте его работу.
  */
 
 public class Main {
-
 	public static void main(String[] args) {
 
 		int q = AP.inputIntegerDialog(0, 12,
-				"amount of students for fist initializing");
+				"amount of students for fist user-initializing");
 		Group gr1 = new Group("Group1", "123/45");
 
 		// initializing array of students = ініціалізація переліку студентів
 		for (int i = 0; i < q; i++)
-			// попередній метод ініціалізації з роком мавчання та вузом
-			// gr1.tcAddStudentToGroup(AP.rndStudent(17, 23, AP.rndBoolean(), 1,
-			// 6));
+			// ручне введення кожного
+			gr1.tcAddStudentToGroup(AP.scInputStudent(AP.scInputHuman(17, 23),
+					20, 1, 6));
 
+		for (int i = 0; i < 12; i++)
+			// add a few random students = додавання кількох випадкових
+			// студентів
 			gr1.tcAddStudentToGroup(AP.rndStudent(17, 23, AP.rndBoolean(), 20,
 					1, 6));
 		System.out.println();
 		System.out.println(gr1 + "\n");
 
+		// Lesson04
+		// sort by the input parameter = сортування за введеним параметром
+		int sortWay = AP.inputIntegerDialog(-4, 4, "way of sorting: \n"
+				+ "[POSITIVE(>0)=ascending(aZ,123);"
+				+ " NEGATIVE(<0)=descending(Za,321)]\n"
+				+ Arrays.toString(Group.getSortParam()));
+		int sortSign = AP.sign(sortWay);
+		System.out.println(Group.getSortParam(sortWay * sortSign)
+				+ AP.direction(sortSign) + "\t" + gr1.getSortGroup(sortWay)
+				+ "\n");
+
+		// Lesson04
+		// output array reservists = вивід масиву резервістів
+		System.out.println("ReservistList:");
+		int i = 0;
+		for (Student st: gr1.getReservistList()) {
+			System.out.println(++i + ". " + st);
+		}
+	
+
+	
+// з попереднього завдання Lesson03
+/*	
 		// remove students from group = виключення студентів з групи
 		for (int i = 0; i < 3; i++) {
 			// особа на випадковій позиції у списку групи
@@ -68,6 +103,6 @@ public class Main {
 		System.out.println(gr1.getSortGroup(0) + "\n");
 		// original = оригінальна база
 		System.out.println(gr1 + "\n");
-
+	*/
 	}
 }

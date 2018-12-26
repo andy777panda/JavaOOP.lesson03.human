@@ -1,18 +1,31 @@
 package net.ukr.andy777;
 
+import java.util.Arrays;
+
 /*
+ Lesson03
  3. Создать класс Группа/Group, который содержит массив из 10 объектов класса Студент/Student.
  Реализовать методы добавления, удаления студента из группы и поиска по фамилии.
  В случае попытки добавления 11го студента создать собственное исключение и обработать его.
  Определить метод toString() для группы так, чтобы он выводил список студентов в алфавитном порядке.
+
+ Lesson04
+ 2. Реализуйте возможность сортировки списка студентов по фамилии.
+ 3. Реализуйте возможность сортировки по параметру (Фамилия, успеваемость и т. д.).
  */
 
-public class Group {
+public class Group implements Reservist {
 	private String groupName; // group name = назва групи
 	private String groupNumber; // group number = номер групи
 	private int count; // amount of students in group = кількість студентів в
 	// групі
 	private Student[] group = new Student[10]; // array Student = масив судентів
+	private static int sortWay; // way of sorting = шлях сортування
+	private static String[] sortParam = { "0.unsorted ", "1.secondName ",
+			"2.firstName ", "3.age ", "4.recordNumber " }; // parameter of
+															// sorting =
+															// параметр
+															// сортування
 
 	/* constructors = конструктори */
 	public Group() {
@@ -66,6 +79,24 @@ public class Group {
 		return count;
 	}
 
+	// way of sorting = шлях сортування
+	public static int getSortWay() {
+		return sortWay;
+	}
+
+	public void setSortWay(int sortWay) {
+		Group.sortWay = sortWay;
+	}
+
+	// parameter of sorting = параметр сортування
+	public static String getSortParam(int i) {
+		return sortParam[i];
+	}
+
+	public static String[] getSortParam() {
+		return sortParam;
+	}
+
 	// toString method = метод виводу інформації про екземпляр класу Group
 	public String toString() {
 		String resStr = "";
@@ -82,40 +113,43 @@ public class Group {
 	 * студентів)
 	 * 
 	 * @param az
-	 *            <code>int</code> sort direction (+0=AZ; -0=Z; 0=unsort)
+	 *            <code>int</code> sort direction (+0=AZ; -0=ZA; 0=unsort)
 	 * @return String value.
 	 * @author ap
 	 */
-	public String getSortGroup(int az) {
-		String[] sts = new String[group.length];
-		String resStr = "";
-		for (int i = 0; i < group.length; i++) {
-			try {
-				sts[i] = group[i].toString();
-			} catch (NullPointerException e) {
-				sts[i] = "";
-			}
+	/*
+	 * public String getSortGroup(int az) { String[] sts = new
+	 * String[group.length]; String resStr = ""; for (int i = 0; i <
+	 * group.length; i++) { try { sts[i] = group[i].toString(); } catch
+	 * (NullPointerException e) { sts[i] = ""; } } sts = AP.sortArray(sts, az);
+	 * for (int i = 0; i < sts.length; i++) { if (sts[i] != "") resStr += "\n" +
+	 * sts[i]; } return "Sorted " + AP.direction(az) + "\t Group [" + groupName
+	 * + " #" + groupNumber + "] consists of such students:" + resStr; }
+	 */
+
+	/**
+	 * Get string-line sorted elemets of group (array of Students) = метод
+	 * отримання строкового рядка відсортованих елементів групи (масиву
+	 * студентів)
+	 * 
+	 * @param az
+	 *            <code>int</code> sort direction (+0=AZ; -0=ZA; 0=unsort)
+	 * @return String value.
+	 * @author ap
+	 */
+	public Group getSortGroup(int sortWay) {
+		// Arrays.sort(group, Comparator.nullsLast(Student::compareTo));
+		// Arrays.sort(group, Collections.reverseOrder());
+		// Student.setSortWay(sortWay);
+		Group.sortWay = sortWay;
+		try {
+			Arrays.sort(group);
+		} catch (NullPointerException e) {
+			System.out.println(e);
 		}
-		sts = AP.sortArray(sts, az);
-		for (int i = 0; i < sts.length; i++) {
-			if (sts[i] != "")
-				resStr += "\n" + sts[i];
-		}
-		return "Sorted " + direction(az) + "\t Group [" + groupName + " #"
-				+ groupNumber + "] consists of such students:" + resStr;
+		return this;
 	}
 
-	// return string value of sort direction = метод повертає напрямок сортуання
-	private static String direction(int az) {
-		if (az > 0)
-			return "AZ ";
-		else if (az < 0)
-			return "ZA ";
-		else
-			return "unsorted ";
-	}
-
-	
 	// Реализовать метод добавления студента в группу. В случае попытки
 	// добавления 11го студента создать собственное исключение и обработать его.
 	/**
@@ -130,7 +164,7 @@ public class Group {
 				+ "\n\t");
 		String id = "(" + groupName + " #" + groupNumber + ")";
 
-		// search same recordNumber in group = 
+		// search same recordNumber in group =
 		// пошук однакового номеру заліковки в групі
 		for (int i = 0; i < group.length; i++) {
 			if (group[i] != null) {
@@ -140,7 +174,7 @@ public class Group {
 			}
 		}
 
-		// search free place in group = 
+		// search free place in group =
 		// пошук вільного місця в групі
 		boolean add = false;
 		for (int i = 0; i < group.length; i++) {
@@ -195,11 +229,11 @@ public class Group {
 			if (group[i] == null)
 				continue;
 
-			// if (group[i].equals(st)) { 
-			// !!!! methot EQUALS needs to be improved, for future = 
+			// if (group[i].equals(st)) {
+			// !!!! methot EQUALS needs to be improved, for future =
 			// метод потребує доопрацювання, на майбутнє
 
-			// currently, identification is only on the recordNumber = 
+			// currently, identification is only on the recordNumber =
 			// наразі ідентифікація лише по номеру заліковки
 			if (group[i].getRecordNumber() == st.getRecordNumber()) {
 				group[i] = null; // exclude student = видаляємо студента
@@ -239,7 +273,7 @@ public class Group {
 	 * @author ap
 	 */
 	public Student[] findSecondName(String sName) {
-		Student[] findList = new Student[0];// result array == масив результатів
+		Student[] res = new Student[0];// result array == масив результатів
 		String id = "(" + groupName + " #" + groupNumber + ")";
 		System.out.print("Find student in group = пошук студента в групі " + id
 				+ ": " + sName + " ==>> ");
@@ -250,15 +284,31 @@ public class Group {
 				continue;
 			if (group[i].getSecondName().equalsIgnoreCase(sName)) {
 				// розширюємо масив знайдених студентів
-				findList = AP.resize(findList, 1);
+				res = AP.resize(res, 1);
 				// ініціалізуємо знайденого студента в масиві результатів
-				findList[q++] = group[i];
+				res[q++] = group[i];
 				resStr += "\n\t\t" + (i + 1) + ". " + group[i].toString();
 			}
 		}
 		resStr = "\t found students = знайдено студентів: " + q + resStr;
 		System.out.println(resStr);
-		return findList;
+		return res;
+	}
+
+	// Lesson04
+	// 4. Реализуйте интерфейс Военком, который вернет из группы массив
+	// студентов - юношей, которым больше 18 лет.
+	public Student[] getReservistList() {
+		Student[] res = new Student[0];// result array == масив результатів
+		for (Student st : this.group) {
+			if (st != null) {
+				if (st.isSex() && st.getAge() > 18) {
+					res = AP.resize(res, 1);
+					res[res.length - 1] = st;
+				}
+			}
+		}
+		return res;
 	}
 
 }
